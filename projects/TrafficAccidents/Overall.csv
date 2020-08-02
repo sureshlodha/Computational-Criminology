@@ -1,0 +1,12 @@
+Categories,Total RTA,Total Fatalities,Total Injuries
+Road Features ,10042,5417,9835
+Collision Type,10042,,
+Vehicle Type,10042,5417,9835
+Urban-Rural,10042,5417,9835
+Road Junction Type,10042,5417,9835
+Traffic Control Type,10042,5417,9835
+Time of the Day (pay attention to only 2018 data),10042,,
+Pedestrian Involved [Urban-Rural-Not involved (last one by inference)],10042,5417,9835
+Type of Area,10042,5417,9835
+Type of Traffic Rule Violation,10042,5417,9835
+Gender Breakdown of Fatalities,,5417,

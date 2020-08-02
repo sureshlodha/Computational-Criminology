@@ -1,0 +1,5 @@
+VehicleType,Others,Animal Drawn Cart,Hand Drawn Cart,Cycle Rickshaw,Bicycle,E-Rickshaw,Tempo/Tractor,HAV/Trolley,Truck/Lorry,Bus,Car/Jeep/Van/Taxi,Auto Rickshaw,Motorised two-wheeler,Unknown,Totalcalculated
+RTA,611,0,0,0,0,0,368,194,3164,889,2291,274,2244,7,10042
+Percentages-RTA,0.060844453,0,0,0,0,0,0.036646086,0.019318861,0.315076678,0.088528182,0.228141804,0.027285401,0.243377813,0.000697072,
+Fatality,490,1,0,0,0,2,227,104,1781,436,1086,117,1171,2,5417
+Injury,290,0,0,0,2,0,305,176,2698,1999,2348,295,1722,0,9835

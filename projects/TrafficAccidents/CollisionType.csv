@@ -1,0 +1,12 @@
+Collisiontype,Divided(NH),Undivided(NH),Divided(SH),Undivided(SH),Divided(OT),Undivided(OT),Unknown
+Head On Collision,223,494,42,475,42,550,
+Vehicle Overturn,50,63,7,68,23,106,
+Fixed objects,29,29,3,33,11,61,
+Run off road,101,147,25,112,24,185,
+Hit from side,104,148,23,119,42,191,
+Hit from back,275,314,57,276,51,390,
+With parked vehicle,45,26,2,21,25,25,
+Hit & Run,60,63,40,78,10,138,
+RTA,887,1284,199,1182,228,1646,4616
+Percentages-RTA,0.088329018,0.127862976,0.01981677,0.117705636,0.022704641,0.163911571,0.459669389
+Total Known Collisions,5426,,,,,,

@@ -1,0 +1,5 @@
+RoadJunctionType,T Junction,Y Junction,Four Arm Junction,Staggered Junction,Round About Junction,Total Road Junction,No Road Junction,Total calculated
+RTA,1303,509,401,1506,375,4094,5948,10042
+Percentages-RTA,0.129755029,0.050687114,0.039932284,0.149970125,0.037343159,0.407687712,0.592312288,
+Fatalities,657,304,173,815,219,2168,3249,5417
+Injuries,1201,428,342,1661,351,3983,5852,9835

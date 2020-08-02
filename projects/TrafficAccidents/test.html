@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<!--Implemented:
+- Tooltip
+- Blue colored map
+- Legend-->
+<html> 
+  <head>
+    <meta charset="utf-8">
+    <script type= "text/javascript" src="https://d3js.org/d3.v5.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+  </head>
+  <style>
+        
+.grid .tick line {
+    stroke: #ddd;
+  }
+
+.boxed {
+  border: 1px solid black ;
+  padding: 20px;
+}
+.d3-tip {
+  line-height: 1;
+  background: #fafafa;
+  border: 1px solid black;
+  font-size: 12px;
+}
+
+p {
+  font-family: Helvetica;
+}
+  </style>
+  <body>
+    <h1 style = "text-align:center; color:steelblue; font:20px sans-serif;"><bold>Test</bold></h1>
+      <div id="sub-heading"></div>
+      <div id="my_chart"></div>
+    <script type="text/javascript">
+        var margin = {top: 20, right: 40, bottom: 60, left: 60},
+            width =  900 - margin.left - margin.right, 
+            height = 1000 - margin.top - margin.bottom;   
+
+        //second chart
+        var svg1 = d3.select("#my_chart")
+            .append("svg")
+                .attr("width", width/5 + margin.left + margin.right)
+                .attr("height", height/5 + margin.top + margin.bottom)
+            .append("g")
+                .attr("transform", "translate(" + (margin.left) + "," + margin.top + ")");
+        var tool_tip = d3.tip()
+          .attr("class", "d3-tip")
+          .offset([20, 40])
+          .html("<div id='mySVGtooltip'></div>");
+        
+        svg1.call(tool_tip);
+        
+        d3.csv("CollisionType.csv").then(function(data){
+
+            var div = d3.select("#sub-heading")
+                    .attr("class", "heading")
+                    .style("opacity", 0);
+
+            //subgroup = features within the group
+            //we do not care about the total calculated column
+            var subgroups = ["Divided(NH)", "Undivided(NH)", "Divided(SH)", "Undivided(SH)", "Divided(OT)", "Undivided(OT)", "Unknown"]
+            //console.log(subgroups)
+            //group = RTA, fatalities, injuries
+            var groups = ["RTA"]
+            //var percentages = data[9];
+            //console.log(percentages);
+            //insert X axis
+            var x = d3.scaleBand()
+                    .domain(groups)
+                    .range([0, width/5])
+                    .padding([0.7]);
+                svg1.append("g")
+                    .append("text")
+                    .attr("class", "label")
+                    .attr("x", width/5/2)
+                    .attr("y", 210)
+                    .style("text-anchor", "middle")
+                    .attr("font-size", "12px")
+                    .attr("fill", "black")
+                    .text("Collision Type")
+                    .on("mouseover", function () {
+                                div.transition()
+                                    .duration(1)
+                                    .style("opacity", 0.9);
+                                div.html( 
+                                    "<p style = 'text-align:center; color:black;margin:0'>Collision Type" +
+                                    "<p style = 'text-align:left; color:black;margin:0'> Excluding the straight roads (which accounts for 79% of the accidents), most accidents occur at curved roads (12%) followed by bridge (2.66%), culvert (1.8%), construction work, pot holes, and steep gradient, each accounting for approximately 0.9% accidents.</p></p>");
+                        })
+                    .on("mouseout", function () {
+                        div.transition()
+                            .duration(1)
+                            .style("opacity", 0);
+                    });
+            //insert Y Axis
+
+            var y = d3.scaleLinear()
+                    .domain([1, 11000])
+                    .range([height/5,0]);
+                svg1.append("g")
+                    .attr("class", "grid")
+                    .call(d3.axisLeft(y).ticks(8).tickSize(-width/5, 0, 0))
+                .append("text")
+                .attr("class", "label")
+                .attr("transform", "rotate(-90)")
+                .attr("x", 0)
+                .attr("y", -55)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .attr("font-size", "12px")
+                .attr("fill", "black")
+                .text("Number of Accidents");
+
+
+            //add different colors per subgroup 
+            var color = d3.scaleOrdinal()
+                    .range(d3.schemeTableau10)
+                    .domain(subgroups);
+
+              //stack the data? --> stack per subgroup
+          var stackedData = d3.stack()
+            .keys(subgroups).order(d3.stackOrderDescending)([data[8]]);
+        //console.log(stackedData);
+          // Show the bars
+          var colors = [];
+          svg1.append("g")
+            .selectAll("g")
+            // Enter in the stack data = loop key per key = group per group
+            .data(stackedData)
+
+            .enter().append("g")
+              .attr("fill", function(d) { colors.push(color(d.key)); return color(d.key); })
+              //Tooltip
+                .on('mouseover', function(d) {
+                    tool_tip.show();
+                    var legendSVG = d3.select("#mySVGtooltip")
+                      .append("svg")
+                      .attr("width", 160)
+                      .attr("height", 50);
+
+                    var legend = legendSVG.append("g")
+                      .attr("font-family", "sans-serif")
+                      .attr("font-size", 12);
+
+
+                    legend.append("rect")
+                        .attr("y", 8)
+                      .attr("x", 15)
+                      .attr("width", 20)
+                      .attr("height", 20)
+                      .attr("fill", color(d.key));
+              
+                    legend.append("text")
+                        .attr("x", 90)
+                      .attr("y", 20)
+                        .attr("text-anchor", "middle")
+                        .attr("font-weight", "bold")
+                      .text(function() {
+                            return d.key;
+                      });
+                    
+                    legend.append("text")
+                      .attr("x", 75)
+                      .attr("y", 45)
+                    .attr("text-anchor", "middle")
+                      .text(function() {
+                            var distance = d[0][1] - d[0][0];
+                            var percentage = (distance/10042)*100;
+                            return (distance + " (" + percentage.toFixed(2) + ")");
+                      });
+                  })
+                .on('mouseout', tool_tip.hide)
+
+              .selectAll("rect")
+              // enter a second time = loop subgroup per subgroup to add all rectangles
+              .data(function(d) { return d; })
+              .enter().append("rect")
+                .attr("x", function(d) { return x(d.data.Collisiontype); })
+                .attr("y", function(d) { return y(d[1]); })
+                .attr("height", function(d) { return y(d[0]) - y(d[1]); })
+                .attr("width",x.bandwidth());
+
+
+        });
+        
+    </script>
+  </body>
+    
+</html>

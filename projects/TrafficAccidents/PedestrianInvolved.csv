@@ -1,0 +1,11 @@
+PedestrianInvolved,Age not known,60 and Above,45-60,35-45,25-35,18-25,Less than 18 years,Pedestrian Involved total,Pedestrian Involved - Urban,Pedestrian Involved - Rural,Pedestrian Not Involved,Total calculated
+Injury,582,129,399,430,505,211,206,2462,1755,707,7423,9885
+Fatality,342,211,653,454,490,188,193,2531,1892,639,2886,5417
+RTA,364,339,1027,831,885,344,371,4161,2977,1184,5881,10042
+Percentages-RTA,0.036247759,0.033758215,0.102270464,0.08275244,0.088129855,0.034256124,0.036944832,0.414359689,0.296454889,0.1179048,0.585640311,
+,,,,,,,,,,,,
+Urban,707,639,1184,,,,,,,,,
+Rural,1755,1892,2977,,,,,,,,,
+Pedestrian Involved,2462,2531,4161,,,,,,,,,
+Pedestrian Not Involved,7423,2886,5881,,,,,,,,,
+Total Calculated,9885,5417,10042,,,,,,,,,
